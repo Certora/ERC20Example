@@ -55,7 +55,7 @@ interface IERC20 {
         returns (bool);
 
     /**
-     * @dev Returns the remaining number of tokens that `spender` will be
+     * Returns the remaining number of tokens that `spender` will be
      * allowed to spend on behalf of `owner` through {transferFrom}. This is
      * zero by default.
      *
@@ -67,7 +67,7 @@ interface IERC20 {
         returns (uint256);
 
     /**
-     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     * Sets `amount` as the allowance of `spender` over the caller's tokens.
      *
      * Returns a boolean value indicating whether the operation succeeded.
      *
