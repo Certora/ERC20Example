@@ -73,7 +73,7 @@ rule transferFromReverts {
     assert false, "rule not implemented";
 }
 
-rule transfer transferFromDoesntRevert {
+rule transferFromDoesntRevert {
     // TODO!
     assert false, "rule not implemented";
 }
