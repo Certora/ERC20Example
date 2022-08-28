@@ -401,10 +401,10 @@ contract ERC20 is IERC20, IERC20Metadata {
         _balances[msg.sender] += msg.value;
     }
 
-    function withdraw(uint256 amount) {
-        require(amount <= _balance[msg.sender]);
+    function withdraw(uint256 amount) external {
+        require(amount <= _balances[msg.sender]);
         _balances[msg.sender] -= amount;
-        (bool success, ) = msg.sender.call{value: value}("");
+        (bool success, ) = msg.sender.call{value: amount}("");
         require(success);
     }
 }
