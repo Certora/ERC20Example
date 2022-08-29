@@ -1,6 +1,7 @@
 
 methods {
-    balanceOf(address) returns (uint) envfree
+    balanceOf(address)         returns(uint) envfree
+    allowance(address,address) returns(uint) envfree
 }
 
 /// Transfer must move `amount` tokens from the caller's account to `recipient`
