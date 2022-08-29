@@ -2,6 +2,7 @@
 methods {
     balanceOf(address)         returns(uint) envfree
     allowance(address,address) returns(uint) envfree
+    totalSupply()              returns(uint) envfree
 }
 
 /// Transfer must move `amount` tokens from the caller's account to `recipient`
@@ -99,4 +100,18 @@ rule onlyHolderCanChangeAllowance {
         (f.selector == approve(address,uint).selector || f.selector == increaseAllowance(address,uint).selector),
         "only approve and increaseAllowance can increase allowances";
 }
+
+//// Part 4: ghosts and hooks //////////////////////////////////////////////////
+
+ghost mathint sum_of_balances {
+    init_state axiom sum_of_balances == 0;
+}
+
+hook Sstore _balances[KEY address a] uint new_value (uint old_value) STORAGE {
+    // when balance changes, update ghost
+    sum_of_balances = sum_of_balances + new_value - old_value;
+}
+
+invariant totalSupplyIsSumOfBalances()
+    totalSupply() == sum_of_balances
 
