@@ -1,9 +1,12 @@
 #!/bin/sh
 
+if test -n "$1"
+then
+    RULE="--rule $1"
+fi
+
 certoraRun \
-    contracts/ERC20.sol                    \
-    --verify ERC20:certora/spec/ERC20.spec \
-    --solc solc-0.8.0                      \
-    --msg "ERC20 verification"             \
-    $*
+    configs/ERC20.conf \
+    $RULE \
+    --msg "ERC20 verification $RULE $2" \
 
