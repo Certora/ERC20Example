@@ -27,13 +27,13 @@ jobs:
 
       # the following is only necessary if your project depends on contracts
       # installed using yarn
-      - name: Install yarn
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn
+      # - name: Install yarn
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 16
+      #     cache: 'yarn'
+      # - name: Install dependencies
+      #   run: yarn
 
       # Install the appropriate version of solc
       - name: Install solc
