@@ -77,6 +77,6 @@ jobs:
           # parametric rule, although it is certainly possible to run everything
           # at once by not passing the `--rule` or `--method` options
           - ERC20.conf --rule transferSpec
-          - ERC20.conf --rule onlyHolderCanChangeAllowance --method "balanceOf()"
+          - ERC20.conf --rule onlyHolderCanChangeAllowance --method "balanceOf(address)"
           - ERC20.conf --rule onlyHolderCanChangeAllowance --method "transferFrom(address,address,uint256)"
 
