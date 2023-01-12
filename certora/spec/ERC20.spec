@@ -1,3 +1,8 @@
+/***
+ * # ERC20 Example
+ *
+ * This is an example specification for a generic ERC20 contract.
+ */
 
 methods {
     balanceOf(address)         returns(uint) envfree
