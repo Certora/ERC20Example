@@ -11,6 +11,8 @@ methods {
     transferFrom(address,address,uint) envfree
 }
 
+//// ## Part 1: Basic rules ////////////////////////////////////////////////////
+
 /// Transfer must move `amount` tokens from the caller's account to `recipient`
 rule transferSpec {
     address sender; address recip; uint amount;
@@ -50,11 +52,11 @@ rule transferReverts {
 
 
 /// Transfer must not revert unless
-///    - sender doesn't have enough funds,
-///    - or the message value is nonzero,
-///    - or the recipient's balance would overflow,
-///    - or the message sender is 0
-///    - or the recipient is 0
+///  the sender doesn't have enough funds,
+///  or the message value is nonzero,
+///  or the recipient's balance would overflow,
+///  or the message sender is 0,
+///  or the recipient is 0
 ///
 /// @title Transfer doesn't revert
 rule transferDoesntRevert {
@@ -86,7 +88,7 @@ rule transferFromDoesntRevert {
     assert false, "rule not implemented";
 }
 
-//// Part 2: parametric rules //////////////////////////////////////////////////
+//// ## Part 2: parametric rules ///////////////////////////////////////////////
 
 /// If `approve` changes a holder's allowance, then it was called by the holder
 rule onlyHolderCanChangeAllowance {
@@ -107,7 +109,7 @@ rule onlyHolderCanChangeAllowance {
         "only approve and increaseAllowance can increase allowances";
 }
 
-//// Part 3: invariants ////////////////////////////////////////////////////////
+//// ## Part 3: invariants /////////////////////////////////////////////////////
 
 /// @dev This rule is unsound!
 invariant balancesBoundedByTotalSupply(address alice, address bob)
@@ -124,7 +126,7 @@ invariant balancesBoundedByTotalSupply(address alice, address bob)
     }
 }
 
-//// Part 4: ghosts and hooks //////////////////////////////////////////////////
+//// ## Part 4: ghosts and hooks ///////////////////////////////////////////////
 
 ghost mathint sum_of_balances {
     init_state axiom sum_of_balances == 0;
