@@ -137,6 +137,7 @@ hook Sstore _balances[KEY address a] uint new_value (uint old_value) STORAGE {
     sum_of_balances = sum_of_balances + new_value - old_value;
 }
 
+/** `totalSupply()` returns the sum of `balanceOf(u)` over all users `u`. */
 invariant totalSupplyIsSumOfBalances()
     totalSupply() == sum_of_balances
 
