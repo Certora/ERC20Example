@@ -82,8 +82,8 @@ jobs:
       max-parallel: 4
       matrix:
         params:
-          # each of these is passed to the "Verify rule" step above, which runs
-          # certoraRun on certora/configs/<contents of the line>
+          # each of these commands is passed to the "Verify rule" step above,
+          # which runs certoraRun on certora/configs/<contents of the command>
           #
           # Note that each of these lines will appear as a separate run on
           # prover.certora.com
@@ -92,6 +92,6 @@ jobs:
           # parametric rule, although it is certainly possible to run everything
           # at once by not passing the `--rule` or `--method` options
           - {name: transferSpec,            command: 'ERC20.conf --rule transferSpec'}
-          - {name: onlyHolder balancerOf,   command: 'ERC20.conf --rule onlyHolderCanChangeAllowance --method "balanceOf(address)"'}
+          - {name: onlyHolder balanceOf,    command: 'ERC20.conf --rule onlyHolderCanChangeAllowance --method "balanceOf(address)"'}
           - {name: onlyHolder transferFrom, command: 'ERC20.conf --rule onlyHolderCanChangeAllowance --method "transferFrom(address,address,uint256)"'}
 
