@@ -53,7 +53,7 @@ jobs:
       # listed in the `params` section below.
       - name: Verify rule ${{ matrix.params.name }}
         run: >
-          message="$(git log -n 1 --pretty=format:'CI ${{matrix.params}} %h .... %s')";
+          message="$(git log -n 1 --pretty=format:'CI ${{matrix.params.name}} %h .... %s')";
           certoraRun \
             certora/configs/${{ matrix.params.command }} \
             --msg "$(echo $message | sed 's/[^a-zA-Z0-9., _-]/ /g')"
@@ -91,7 +91,7 @@ jobs:
           # It is often helpful to split up by rule or even by method for a
           # parametric rule, although it is certainly possible to run everything
           # at once by not passing the `--rule` or `--method` options
-          - {name: transferSpec,            command: ERC20.conf --rule transferSpec}
-          - {name: onlyHolder balancerOf,   command: ERC20.conf --rule onlyHolderCanChangeAllowance --method "balanceOf(address)"}
-          - {name: onlyHolder transferFrom, command: ERC20.conf --rule onlyHolderCanChangeAllowance --method "transferFrom(address,address,uint256)"}
+          - {name: transferSpec,            command: 'ERC20.conf --rule transferSpec'}
+          - {name: onlyHolder balancerOf,   command: 'ERC20.conf --rule onlyHolderCanChangeAllowance --method "balanceOf(address)"'}
+          - {name: onlyHolder transferFrom, command: 'ERC20.conf --rule onlyHolderCanChangeAllowance --method "transferFrom(address,address,uint256)"'}
 
