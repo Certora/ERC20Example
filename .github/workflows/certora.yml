@@ -62,6 +62,21 @@ jobs:
           # website (settings > secrets > actions > new repository secret)
           CERTORAKEY: ${{ secrets.CERTORAKEY }}
 
+      # The following two steps save the output json as a github artifact.
+      # This can be useful for automation that collects the output.
+      - name: Download output json
+        if: always()
+        run: >
+          outputLink=$(sed 's/zipOutput/output/g' .zip-output-url.txt | sed 's/?/\/output.json?/g')
+          curl -L -b "certoraKey=$CERTORAKEY;" ${outputLink} --output output.json || true
+          touch output.json
+
+      - name: Archive output json
+        uses: actions/upload-artifact@v3
+        with:
+          name: output for ${{ matrix.params }}
+          path: output.json
+
     strategy:
       fail-fast: false
       max-parallel: 4
