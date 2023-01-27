@@ -93,5 +93,5 @@ jobs:
           # at once by not passing the `--rule` or `--method` options
           - {name: transferSpec,            command: ERC20.conf --rule transferSpec}
           - {name: onlyHolder balancerOf,   command: ERC20.conf --rule onlyHolderCanChangeAllowance --method "balanceOf(address)"}
-          - {name: onlyHolder transferFrom, command: ERC20.conf --rule onlyHolderCanChangeAllowance --method "transferFrom(address,address,uint256)"
+          - {name: onlyHolder transferFrom, command: ERC20.conf --rule onlyHolderCanChangeAllowance --method "transferFrom(address,address,uint256)"}
 
