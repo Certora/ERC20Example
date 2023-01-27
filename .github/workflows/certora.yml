@@ -67,9 +67,9 @@ jobs:
       - name: Download output json
         if: always()
         run: >
-          outputLink=$(sed 's/zipOutput/output/g' .zip-output-url.txt | sed 's/?/\/output.json?/g')
-          curl -L -b "certoraKey=$CERTORAKEY;" ${outputLink} --output output.json || true
-          touch output.json
+          outputLink=$(sed 's/zipOutput/output/g' .zip-output-url.txt | sed 's/?/\/output.json?/g');
+          curl -L -b "certoraKey=$CERTORAKEY;" ${outputLink} --output output.json || true;
+          touch output.json;
 
       - name: Archive output json
         uses: actions/upload-artifact@v3
