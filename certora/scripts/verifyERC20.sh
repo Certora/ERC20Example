@@ -6,7 +6,7 @@ then
 fi
 
 certoraRun \
-    configs/ERC20.conf \
+    certora/conf/ERC20.conf \
     $RULE \
     --msg "ERC20 verification $RULE $2" \
 
