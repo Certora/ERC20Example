@@ -141,3 +141,15 @@ hook Sstore _balances[KEY address a] uint new_value (uint old_value) STORAGE {
 invariant totalSupplyIsSumOfBalances()
     totalSupply() == sum_of_balances
 
+rule vacuous {
+    uint x;
+    require x < 3;
+    require x > 7;
+    require x > 3;
+
+    method f; env e; calldataarg args;
+    f(e,args);
+
+    assert x == 5;
+}
+
