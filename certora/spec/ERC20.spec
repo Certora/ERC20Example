@@ -72,6 +72,19 @@ rule transferDoesntRevert {
     assert !lastReverted;
 }
 
+/// Sum of balances after transfer must be mantained
+rule integrityOfTransfer(address recipient, uint256 amount) {
+
+   env e;
+   uint256 balanceSender = balanceOf(e, e.msg.sender);
+   uint256 balanceRecipient = balanceOf(e, recipient);
+   transfer(e, recipient, amount);
+
+	assert balanceRecipient+ balanceSender == 
+        balanceOf(e, e.msg.sender) + balanceOf(e, recipient),
+        "Transfer of money should not affect the total sum of balances";
+}
+
 rule transferFromSpec {
     // TODO!
     assert false, "rule not implemented";
