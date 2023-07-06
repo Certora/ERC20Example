@@ -85,22 +85,6 @@ rule integrityOfTransfer(address recipient, uint256 amount) {
         "Transfer of money should not affect the total sum of balances";
 }
 
-rule transferFromSpec {
-    // TODO!
-    assert false, "rule not implemented";
-}
-
-
-rule transferFromReverts {
-    // TODO!
-    assert false, "rule not implemented";
-}
-
-rule transferFromDoesntRevert {
-    // TODO!
-    assert false, "rule not implemented";
-}
-
 //// ## Part 2: parametric rules ///////////////////////////////////////////////
 
 /// If `approve` changes a holder's allowance, then it was called by the holder
