@@ -5,10 +5,10 @@
  */
 
 methods {
-    balanceOf(address)         returns(uint) envfree
-    allowance(address,address) returns(uint) envfree
-    totalSupply()              returns(uint) envfree
-    transferFrom(address,address,uint) envfree
+    function balanceOf(address)         external returns(uint) envfree;
+    function allowance(address,address) external returns(uint) envfree;
+    function totalSupply()              external returns(uint) envfree;
+    function transferFrom(address,address,uint) external returns(bool) envfree;
 }
 
 //// ## Part 1: Basic rules ////////////////////////////////////////////////////
@@ -72,20 +72,17 @@ rule transferDoesntRevert {
     assert !lastReverted;
 }
 
-rule transferFromSpec {
-    // TODO!
-    assert false, "rule not implemented";
-}
+/// Sum of balances after transfer must be mantained
+rule integrityOfTransfer(address recipient, uint256 amount) {
 
+   env e;
+   uint256 balanceSender = balanceOf(e, e.msg.sender);
+   uint256 balanceRecipient = balanceOf(e, recipient);
+   transfer(e, recipient, amount);
 
-rule transferFromReverts {
-    // TODO!
-    assert false, "rule not implemented";
-}
-
-rule transferFromDoesntRevert {
-    // TODO!
-    assert false, "rule not implemented";
+	assert balanceRecipient+ balanceSender == 
+        balanceOf(e, e.msg.sender) + balanceOf(e, recipient),
+        "Transfer of money should not affect the total sum of balances";
 }
 
 //// ## Part 2: parametric rules ///////////////////////////////////////////////
@@ -105,7 +102,7 @@ rule onlyHolderCanChangeAllowance {
         "approve must only change the sender's allowance";
 
     assert allowance_after > allowance_before =>
-        (f.selector == approve(address,uint).selector || f.selector == increaseAllowance(address,uint).selector),
+        (f.selector == sig:approve(address,uint).selector || f.selector == sig:increaseAllowance(address,uint).selector),
         "only approve and increaseAllowance can increase allowances";
 }
 
@@ -113,7 +110,7 @@ rule onlyHolderCanChangeAllowance {
 
 /// @dev This rule is unsound!
 invariant balancesBoundedByTotalSupply(address alice, address bob)
-    balanceOf(alice) + balanceOf(bob) <= totalSupply()
+    balanceOf(alice) + balanceOf(bob) <= to_mathint(totalSupply())
 {
     preserved transfer(address recip, uint256 amount) with (env e) {
         require recip        == alice || recip        == bob;
@@ -139,5 +136,5 @@ hook Sstore _balances[KEY address a] uint new_value (uint old_value) STORAGE {
 
 /** `totalSupply()` returns the sum of `balanceOf(u)` over all users `u`. */
 invariant totalSupplyIsSumOfBalances()
-    totalSupply() == sum_of_balances
+    to_mathint(totalSupply()) == sum_of_balances;
 
